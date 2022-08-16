@@ -14,13 +14,17 @@ form.addEventListener('submit', function (e){
         return;
     }
     if(!altura){
-        setResultado('Altura invalida');
+        setResultado('Altura invalida', false);
         return;
     }
     
   
     const imc = getImc(peso, altura);
-    console.log(imc);
+    const nivelImc = getNivelImc(imc);
+
+    const msg = `Seu IMC é: ${imc} (${nivelImc}).`;
+
+    setResultado(msg, true);
     
     
 });
@@ -29,6 +33,10 @@ function getNivelImc (imc) {
     if(imc >= 39.9){
         return nivel[5];
     }
+    /*
+    so uma linha, nao precisa das chaves 
+    if(imc >= 39.9) return nivel[5];
+    */
     if (imc >= 34.9) {
         return nivel[4];
     }
@@ -58,9 +66,16 @@ function criaP(){
 
 function setResultado (msg, isValid){
     const resultado = document.querySelector('#resultado');
-    resultado.innerHTML = 'novo';
+    resultado.innerHTML = '';
 
     const p = criaP();
+
+    if(isValid) {
+        p.classList.add('paragrafo-resultadoP'); //Função para adionar a resposta com o fundo verde se der o resultado esperado vermelho caso haja algum erro
+    }else{
+        p.classList.add('paragrafo-resultadoR');
+    }
+    
     p.innerHTML = msg;
     resultado.appendChild(p);
 }
