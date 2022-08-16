@@ -45,7 +45,7 @@ function getNivelImc (imc) {
         return nivel[0];
     }
 } 
-
+ 
 function getImc(peso, altura) {
     const imc = peso / altura ** 2;
     return imc.toFixed(2); //retornar com duas casas decimais
